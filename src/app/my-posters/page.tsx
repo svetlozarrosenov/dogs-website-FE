@@ -5,15 +5,38 @@ import { usePosters, mutatePosterCreate } from '@/hooks';
 import CustomForm from '@/components/common/customForm';
 import { fields } from './const';
 import Button from '@/components/common/Button';
+import Popup from '@/components/common/popup';
 
 
 function MyPosters() {
     const { data: posters } = usePosters();
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
     console.log('crb_posters', posters)
+    const openPopup = () => {
+        setIsPopupOpen(true);
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false);
+    };
+
+    const onSubmit = async (values) => {
+        await mutatePosterCreate(values);
+        closePopup();
+    };
+
     return (
         <div>
-            popup
-            <Button>Add Poster</Button>
+            <Button onClick={openPopup}>Add Poster</Button>
+
+            <Popup isOpen={isPopupOpen} onClose={closePopup}>
+                <CustomForm 
+                    fields={fields} 
+                    onSubmit={onSubmit}
+                    button={'submit'}
+                    title={'Add New Poster'}
+                />
+            </Popup>
 
             {posters && <ul className='posters-list'>
                 {posters.map((poster) => {
@@ -28,21 +51,6 @@ function MyPosters() {
             </ul>}
         </div>
     );
-
-    // const onSubmit = async (values) => {
-    //     await mutatePosterCreate(values);
-    // };
-
-    // return (
-    //     <div>
-    //         <CustomForm 
-    //             fields={fields} 
-    //             onSubmit={onSubmit}
-    //             button={'submit'}
-    //             title={'Add New Poster'}
-    //         />
-    //     </div>
-    // );
 }
 
 export default MyPosters;

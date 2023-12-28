@@ -60,9 +60,12 @@ export const mutatePosterCreate = async (createData, options = {}) => {
             const response = await axios.post(URLs.createPoster, createData, {
                 withCredentials: true,
               });
-
-            return axios.isAxiosError(response) ?
-            current : response
+            console.log('crb_response', response)
+            console.log('crb_current', current)
+            return {
+                data: axios.isAxiosError(response) ?
+                current.data : response.data.concat(current.data)
+            }
         },
         false
     );
