@@ -1,0 +1,10 @@
+.suggested { position: relative; padding: 50px 0; background-color: #F4F8FF; }
+
+.suggested .suggested__title { padding-bottom: 50px; text-align: center; color: #F26A1B; }
+
+.suggested-boxes { display: flex; justify-content: space-between; list-style-type: none; }
+.suggested-boxes-item { position: relative; width: 30%; padding-top: 20px; box-shadow: 0 4px 32px rgb(0 0 0 / 8%); }
+.suggested-boxes-item .suggested-boxes-item__link { position: absolute; top: 0; left: 0; width: 100%; height: 100%;}
+.suggested-boxes-item .suggested-boxes-item__title { margin-bottom: 20px; color: #F26A1B; text-align: center;}
+
+.suggested__actions { padding-top: 50px; text-align: center; }

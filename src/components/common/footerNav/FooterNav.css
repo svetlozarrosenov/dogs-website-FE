@@ -1,0 +1,14 @@
+.footer-nav ul {
+    list-style-type: none;
+}
+
+.footer-nav ul li {
+    display: block;
+}
+
+.footer-nav ul li + li {
+    margin-top: 10px;
+}
+
+.footer-nav a { font-size: 20px; text-decoration: none; color: #F26A1B; transition: .3s; }
+.footer-nav a:hover { opacity: .6; }

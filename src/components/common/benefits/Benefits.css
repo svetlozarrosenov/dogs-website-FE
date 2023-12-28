@@ -1,0 +1,15 @@
+.benefits { padding: 50px 0; }
+
+.benefits-box { padding: 20px; margin-bottom: 20px; box-shadow: 0 4px 32px rgb(0 0 0 / 8%); transition: .5s; }
+
+.benefix-box--blue { background-color: #F4F8FF; }
+
+.benefits-box .benefits-box__title { margin-bottom: 20px; color:#2196F3; }
+
+.benefix-box--blue .benefits-box__title { color: #F26A1B; }
+
+.benefits-list { padding-left: 20px; }
+
+.benefits-list li { margin-bottom: 10px; }
+
+.benefits-box:hover { transform: scale(1.02); }

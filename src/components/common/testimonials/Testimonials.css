@@ -1,0 +1,11 @@
+.testimonials { padding-top: 50px; }
+.testimonials-list { display: flex; justify-content: space-between; flex-wrap: wrap; width: 100%; list-style: none; }
+.testimonial { width: 48%; padding: 20px; margin-bottom: 50px; background-color: #F4F8FF; box-shadow: 0 4px 32px rgb(0 0 0 / 8%); }
+.testimonial .testimonial__content { color: #2196F3; }
+.testimonial .testimonial__author { padding-top: 20px; color: #F26A1B; }
+.testimonial .testimonial__head, .testimonial .testimonial__foot { float: left; }
+
+.testimonial .testimonial__head { width: 22%; }
+.testimonial .testimonial__foot { width: 78%; }
+
+.testimonial::after { display: table; clear: both; }

@@ -1,0 +1,5 @@
+.intro { background-color: #F4F8FF; padding: 20px; }
+.intro .intro__image { float: right; width: 50%; padding: 20px; background-color: #F26A1B; box-shadow: 0 4px 32px rgb(0 0 0 / 8%); }
+.intro .intro__head { float: left; width: 50%; padding-right: 20px; }
+
+.intro .intro__title, .intro .intro__text { margin-bottom: 20px; }

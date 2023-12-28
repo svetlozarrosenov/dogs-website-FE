@@ -1,0 +1,3 @@
+.filter { padding: 60px 0; }
+.filter .filter__content { display: flex; justify-content: space-between; }
+.filter .filter__action { padding-top: 25px; }

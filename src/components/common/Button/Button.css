@@ -1,0 +1,4 @@
+.btn { display: inline-block; padding: 15px 50px; font-size: 20px; background-color: #F26A1B; color: #fff; border-radius: 6px; text-decoration: none; box-shadow: 0 14px 26px -12px rgb(6 151 242 / 42%), 0 4px 23px 0 rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(255 155 5 / 20%); transition: .3s; }
+.btn:hover { opacity: .6; }
+
+.btn.btn--blue { background-color: #2196F3; }
