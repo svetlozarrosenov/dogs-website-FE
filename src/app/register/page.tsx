@@ -3,6 +3,7 @@ import './register.css';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import Shell from '@/components/common/shell';
+import { useRouter } from 'next/navigation';
 
 const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -20,6 +21,8 @@ const SignupSchema = Yup.object().shape({
   });
 
 function Register() {
+    const router = useRouter();
+    
     return (
         <div className='register'>
             <Shell>
@@ -33,7 +36,7 @@ function Register() {
                     }}
                     validationSchema={SignupSchema}
                     onSubmit={async values => {
-                        const url = `${process.env.REACT_APP_API_URL}/user/register`
+                        const url = `${process.env.NEXT_PUBLIC_API_URL}/user/register`
                         try{
                             await fetch(url, {
                                 body: JSON.stringify(values),
@@ -44,8 +47,8 @@ function Register() {
                                 mode: 'cors'
                             })
                             .then((data)=>{
-                                console.log('crb_here')
-                                console.log(data)
+                                router.push('login')
+                                console.log('crb_registered', data)
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
