@@ -57,11 +57,23 @@ export const mutatePosterCreate = async (createData, options = {}) => {
     return await mutate(
         URLs.postersList,
         async (current) => {
-            const response = await axios.post(URLs.createPoster, createData, {
+            console.log('crb_createData', createData)
+            const formData = new FormData();
+            formData.append('title', createData.title);
+            formData.append('breed', createData.breed);
+            formData.append('price', createData.price);
+            formData.append('text', createData.text);
+            formData.append('image', createData.image[0]);
+
+            const response = await axios.post(URLs.createPoster, formData, {
                 withCredentials: true,
-              });
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
             console.log('crb_response', response)
             console.log('crb_current', current)
+            console.log('crb_createData', createData)
             return {
                 data: axios.isAxiosError(response) ?
                 current.data : response.data.concat(current.data)

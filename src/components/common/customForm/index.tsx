@@ -70,6 +70,24 @@ function CustomForm({
                             );
                         }
 
+                        if (field.fieldType === 'fileInput') {                            
+                            return (
+                                <div key={field.id}>
+                                {field.label && <label>{field.label}</label>}
+                                <input
+                                    id={field.id}
+                                    type='file'
+                                    accept="image/png, image/jpeg"
+                                    {...register(field.name)}
+                                    required={field.required}
+                                    disabled={field.disabled}
+                                    placeholder={field.placeholder}
+                                    multiple={field.multiple}
+                                />
+                                </div>
+                            );
+                        }
+
                         return null;
                     })}
             

@@ -1,5 +1,14 @@
 export const fields = [
     {
+        id: 'image',
+        name: 'image',
+        fieldType: 'fileInput',
+        placeholder: 'Image',
+        multiple: true,
+        required: true,
+        disabled: false,
+    },
+    {
         id: 'title',
         name: 'title',
         fieldType: 'input',
