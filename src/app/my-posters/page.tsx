@@ -11,7 +11,7 @@ import Popup from '@/components/common/popup';
 function MyPosters() {
     const { data: posters } = usePosters();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    console.log('crb_posters', posters)
+
     const openPopup = () => {
         setIsPopupOpen(true);
     };
