@@ -57,7 +57,6 @@ export const mutatePosterCreate = async (createData, options = {}) => {
     return await mutate(
         URLs.postersList,
         async (current) => {
-            console.log('crb_createData', createData)
             const formData = new FormData();
             formData.append('title', createData.title);
             formData.append('breed', createData.breed);
@@ -71,12 +70,12 @@ export const mutatePosterCreate = async (createData, options = {}) => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            console.log('crb_response', response)
-            console.log('crb_current', current)
-            console.log('crb_createData', createData)
+
+            console.log('crb_response', [...current.data, response.data])
+
             return {
                 data: axios.isAxiosError(response) ?
-                current.data : response.data.concat(current.data)
+                current.data : [...current.data, response.data]
             }
         },
         false

@@ -48,7 +48,6 @@ function Register() {
                             })
                             .then((data)=>{
                                 router.push('login')
-                                console.log('crb_registered', data)
                             })
                             .catch((error) => {
                                 console.error('Error:', error);
