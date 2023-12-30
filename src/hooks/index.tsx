@@ -71,11 +71,9 @@ export const mutatePosterCreate = async (createData, options = {}) => {
                 },
             });
 
-            console.log('crb_response', [...current.data, response.data])
-
             return {
                 data: axios.isAxiosError(response) ?
-                current.data : [...current.data, response.data]
+                current.data : [response.data, ...current.data]
             }
         },
         false

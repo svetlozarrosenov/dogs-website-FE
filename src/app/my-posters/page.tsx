@@ -6,12 +6,13 @@ import CustomForm from '@/components/common/customForm';
 import { fields } from './const';
 import Button from '@/components/common/Button';
 import Popup from '@/components/common/popup';
+import Image from 'next/image';
 
 
 function MyPosters() {
     const { data: posters } = usePosters();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    console.log('crb_posters', posters)
+
     const openPopup = () => {
         setIsPopupOpen(true);
     };
@@ -24,7 +25,7 @@ function MyPosters() {
         await mutatePosterCreate(values);
         closePopup();
     };
-
+    console.log('crb_posters', posters)
     return (
         <div>
             <Button onClick={openPopup}>Add Poster</Button>
@@ -41,7 +42,16 @@ function MyPosters() {
             {posters && <ul className='posters-list'>
                 {posters.map((poster) => {
                     return <li key={poster._id} className='poster'>
-                        <div className="poster__image">{poster.image}</div>
+                        {poster.image && (
+                            <div className="poster__image">
+                                <Image
+                                    src={`data:${poster.image.mimeType};base64,${poster.image.data}`}
+                                    alt={`Poster Image - ${poster.title}`}
+                                    width={300} // Set the desired width
+                                    height={200} // Set the desired height
+                                />
+                            </div>
+                        )}
                         <div className="poster__title">{poster.title}</div>
                         <div className="poster__breed">{poster.breed}</div>
                         <div className="poster__price">{poster.price}$</div>
