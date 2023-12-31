@@ -1,0 +1,4 @@
+.posters-list { padding-top: 30px; list-style: none; display: flex; justify-content: center; }
+.poster { width: 28%;}
+.poster + .poster { margin-left: 20px; }
+.poster .poster__image img { width: 100%; height: auto; }

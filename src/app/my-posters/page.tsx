@@ -1,4 +1,5 @@
 'use client';
+import './myPosters.css';
 import Shell from '@/components/common/shell';
 import { useState } from 'react';
 import { usePosters, mutatePosterCreate } from '@/hooks';
@@ -7,9 +8,11 @@ import { fields } from './const';
 import Button from '@/components/common/Button';
 import Popup from '@/components/common/popup';
 import Image from 'next/image';
+import UserGuard from '@/guards/authGuard';
 
 
 function MyPosters() {
+    UserGuard();
     const { data: posters } = usePosters();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -28,6 +31,7 @@ function MyPosters() {
     console.log('crb_posters', posters)
     return (
         <div>
+            <Shell>
             <Button onClick={openPopup}>Add Poster</Button>
 
             <Popup isOpen={isPopupOpen} onClose={closePopup}>
@@ -39,13 +43,13 @@ function MyPosters() {
                 />
             </Popup>
 
-            {posters && <ul className='posters-list'>
+            {posters?.length && <ul className='posters-list'>
                 {posters.map((poster) => {
                     return <li key={poster._id} className='poster'>
                         {poster.image && (
                             <div className="poster__image">
                                 <Image
-                                    src={`data:${poster.image.mimeType};base64,${poster.image.data}`}
+                                    src={`${process.env.NEXT_PUBLIC_API_URL}/file/${poster.image}`}
                                     alt={`Poster Image - ${poster.title}`}
                                     width={300} // Set the desired width
                                     height={200} // Set the desired height
@@ -59,6 +63,9 @@ function MyPosters() {
                     </li>
                 })}
             </ul>}
+
+            {!posters?.length && <div className='posters-list-not-found'>You don't have any active posters!</div>}
+            </Shell>
         </div>
     );
 }
