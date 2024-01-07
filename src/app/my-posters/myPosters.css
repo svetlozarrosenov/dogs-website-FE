@@ -1,4 +1,12 @@
-.posters-list { padding-top: 30px; list-style: none; display: flex; justify-content: center; }
-.poster { width: 28%;}
-.poster + .poster { margin-left: 20px; }
-.poster .poster__image img { width: 100%; height: auto; }
+.posters-list { padding: 20px 0; list-style: none; }
+.poster { padding:20px; background-color: #F4F8FF; }
+.poster .poster__head { display: flex; justify-content: left; } 
+.poster + .poster { margin-top: 20px; }
+.poster .poster__image img { width: 200px; height: auto; }
+.poster .poster__image { margin-right: 10px; }
+
+.poster .poster__title { font-size: 22px; font-weight: bold; }
+
+.poster .poster__foot { display: flex; justify-content: right; padding-top: 10px; margin-top: 10px; border-top: 1px solid #000;}
+
+.poster .btn + .btn { margin-left: 20px; }

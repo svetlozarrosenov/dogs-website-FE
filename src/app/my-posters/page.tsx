@@ -8,11 +8,8 @@ import { fields } from './const';
 import Button from '@/components/common/Button';
 import Popup from '@/components/common/popup';
 import Image from 'next/image';
-import UserGuard from '@/guards/authGuard';
-
 
 function MyPosters() {
-    UserGuard();
     const { data: posters } = usePosters();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -46,20 +43,28 @@ function MyPosters() {
             {posters?.length && <ul className='posters-list'>
                 {posters.map((poster) => {
                     return <li key={poster._id} className='poster'>
-                        {poster.image && (
-                            <div className="poster__image">
-                                <Image
-                                    src={`${process.env.NEXT_PUBLIC_API_URL}/file/${poster.image}`}
-                                    alt={`Poster Image - ${poster.title}`}
-                                    width={300} // Set the desired width
-                                    height={200} // Set the desired height
-                                />
+                        <div className="poster__head">
+                            {poster.image && (
+                                <div className="poster__image">
+                                    <Image
+                                        src={`${process.env.NEXT_PUBLIC_API_URL}/file/${poster.image}`}
+                                        alt={`Poster Image - ${poster.title}`}
+                                        width={300} // Set the desired width
+                                        height={200} // Set the desired height
+                                    />
+                                </div>
+                            )}
+                            <div className="poster-container">
+                                <div className="poster__title">{poster.title}</div>
+                                <div className="poster__breed">breed: {poster.breed}</div>
+                                <div className="poster__price">price: {poster.price}$</div>
                             </div>
-                        )}
-                        <div className="poster__title">{poster.title}</div>
-                        <div className="poster__breed">{poster.breed}</div>
-                        <div className="poster__price">{poster.price}$</div>
-                        <div className="poster__edit">Edit</div>
+                        </div>
+
+                        <div className="poster__foot">
+                            <Button>Edit</Button>
+                            <Button>Deactivate</Button>
+                        </div>
                     </li>
                 })}
             </ul>}
