@@ -2,15 +2,16 @@
 import './myPosters.css';
 import Shell from '@/components/common/shell';
 import { useState } from 'react';
-import { usePosters, mutatePosterCreate } from '@/hooks';
+import { useActivePosters, mutatePosterCreate, mutatePosterDeactivate } from '@/hooks';
 import CustomForm from '@/components/common/customForm';
 import { fields } from './const';
 import Button from '@/components/common/Button';
 import Popup from '@/components/common/popup';
 import Image from 'next/image';
+import Bar from '@/components/myPosters/bar';
 
 function MyPosters() {
-    const { data: posters } = usePosters();
+    const { data: posters } = useActivePosters();
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
@@ -25,11 +26,16 @@ function MyPosters() {
         await mutatePosterCreate(values);
         closePopup();
     };
-    console.log('crb_posters', posters)
+
+    const deactivatePoster = async (posterId: string) => {
+        await mutatePosterDeactivate(posterId);
+    };
     return (
         <div>
             <Shell>
             <Button onClick={openPopup}>Add Poster</Button>
+
+            <Bar></Bar>
 
             <Popup isOpen={isPopupOpen} onClose={closePopup}>
                 <CustomForm 
@@ -39,7 +45,7 @@ function MyPosters() {
                     title={'Add New Poster'}
                 />
             </Popup>
-
+            
             {posters?.length && <ul className='posters-list'>
                 {posters.map((poster) => {
                     return <li key={poster._id} className='poster'>
@@ -63,7 +69,7 @@ function MyPosters() {
 
                         <div className="poster__foot">
                             <Button>Edit</Button>
-                            <Button>Deactivate</Button>
+                            <Button onClick={() => deactivatePoster(poster._id)}>Deactivate</Button>
                         </div>
                     </li>
                 })}

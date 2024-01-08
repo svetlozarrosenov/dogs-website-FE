@@ -4,13 +4,26 @@ import useSWR, { mutate } from "swr";
 const URLs = {
     currentUser: `${process.env.NEXT_PUBLIC_API_URL}/user/current`,
     login: `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-    postersList: `${process.env.NEXT_PUBLIC_API_URL}/posters/list`,
+    activePostersList: `${process.env.NEXT_PUBLIC_API_URL}/posters/list/active`,
+    inactivePostersList: `${process.env.NEXT_PUBLIC_API_URL}/posters/list/inactive`,
     createPoster: `${process.env.NEXT_PUBLIC_API_URL}/posters/create`,
     editPoster: `${process.env.NEXT_PUBLIC_API_URL}/posters/edit`,
+    deactivatePoster: (posterId: string) => `${process.env.NEXT_PUBLIC_API_URL}/posters/deactivate/${posterId}`,
+    activatePoster: (posterId: string) => `${process.env.NEXT_PUBLIC_API_URL}/posters/activate/${posterId}`,
 }
 
-export const usePosters = () => {
-    const { data: result, error, isLoading } = useSWR(URLs.postersList, async (url) => await axios.get(url),)
+export const useActivePosters = () => {
+    const { data: result, error, isLoading } = useSWR(URLs.activePostersList, async (url) => await axios.get(url),)
+
+    return {
+        data: result?.data,
+        isLoading,
+        isError: error
+    }
+}
+
+export const useInactivePosters = () => {
+    const { data: result, error, isLoading } = useSWR(URLs.inactivePostersList, async (url) => await axios.get(url),)
 
     return {
         data: result?.data,
@@ -53,9 +66,43 @@ export const mutateLogin = async (loginData, options = {}) => {
     );
 };
 
+export const mutatePosterActivate = async (posterId: string, options = {}) => {
+    return await mutate(
+        URLs.inactivePostersList,
+        async (current) => {
+            const response = await axios.post(URLs.activatePoster(posterId), {
+                withCredentials: true,
+            });
+
+            return {
+                data: axios.isAxiosError(response) ?
+                current.data : [...current.data.filter(poster => poster._id !== response.data._id)]
+            }
+        },
+        false
+    );
+};
+
+export const mutatePosterDeactivate = async (posterId: string, options = {}) => {
+    return await mutate(
+        URLs.activePostersList,
+        async (current) => {
+            const response = await axios.post(URLs.deactivatePoster(posterId), {
+                withCredentials: true,
+            });
+
+            return {
+                data: axios.isAxiosError(response) ?
+                current.data : [...current.data.filter(poster => poster._id !== response.data._id)]
+            }
+        },
+        false
+    );
+};
+
 export const mutatePosterCreate = async (createData, options = {}) => {
     return await mutate(
-        URLs.postersList,
+        URLs.activePostersList,
         async (current) => {
             const formData = new FormData();
             formData.append('title', createData.title);

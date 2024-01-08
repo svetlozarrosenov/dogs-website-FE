@@ -1,0 +1,5 @@
+.my-posters-bar { padding: 10px 20px; border: 1px solid #000; }
+
+.my-posters-bar a { text-decoration: none; color: #F26A1B; }
+
+.my-posters-bar a + a { margin-left: 20px;}

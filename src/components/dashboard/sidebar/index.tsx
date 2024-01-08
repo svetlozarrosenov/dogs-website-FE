@@ -19,7 +19,7 @@ function Sidebar() {
                             <Link href="/search">Search</Link>
                         </li>}
                         {<li>
-                            <Link href="/my-posters">My Posters</Link>
+                            <Link href="/my-posters/active">My Posters</Link>
                         </li>}
                         <li>
                             <Link href="/history">History</Link>
