@@ -13,7 +13,7 @@ export const URLs = {
 }
 
 export const useActivePosters = () => {
-    const { data: result, error, isLoading } = useSWR(URLs.activePostersList, async (url) => await axios.get(url),)
+    const { data: result, error, isLoading } = useSWR(URLs.activePostersList, async (url) => await axios.get(url, { withCredentials: true }),)
 
     return {
         data: result?.data,
@@ -23,7 +23,7 @@ export const useActivePosters = () => {
 }
 
 export const useInactivePosters = () => {
-    const { data: result, error, isLoading } = useSWR(URLs.inactivePostersList, async (url) => await axios.get(url),)
+    const { data: result, error, isLoading } = useSWR(URLs.inactivePostersList, async (url) => await axios.get(url, { withCredentials: true }),)
 
     return {
         data: result?.data,
