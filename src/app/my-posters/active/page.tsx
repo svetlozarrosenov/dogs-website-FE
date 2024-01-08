@@ -9,6 +9,8 @@ import Button from '@/components/common/Button';
 import Popup from '@/components/common/popup';
 import Image from 'next/image';
 import Bar from '@/components/myPosters/bar';
+import { URLs } from '@/hooks';
+import { mutate } from 'swr';
 
 function MyPosters() {
     const { data: posters } = useActivePosters();
@@ -29,6 +31,7 @@ function MyPosters() {
 
     const deactivatePoster = async (posterId: string) => {
         await mutatePosterDeactivate(posterId);
+        await mutate(URLs.inactivePostersList);
     };
     return (
         <div>
@@ -68,7 +71,7 @@ function MyPosters() {
                         </div>
 
                         <div className="poster__foot">
-                            <Button>Edit</Button>
+                            <Button onClick={openPopup}>Edit</Button>
                             <Button onClick={() => deactivatePoster(poster._id)}>Deactivate</Button>
                         </div>
                     </li>

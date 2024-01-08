@@ -1,7 +1,7 @@
 import axios from "axios";
 import useSWR, { mutate } from "swr";
 
-const URLs = {
+export const URLs = {
     currentUser: `${process.env.NEXT_PUBLIC_API_URL}/user/current`,
     login: `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
     activePostersList: `${process.env.NEXT_PUBLIC_API_URL}/posters/list/active`,

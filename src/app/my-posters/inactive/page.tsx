@@ -2,19 +2,21 @@
 import './myPosters.css';
 import Shell from '@/components/common/shell';
 import { useState } from 'react';
-import { useInactivePosters, mutatePosterActivate } from '@/hooks';
+import { useInactivePosters, mutatePosterActivate, URLs } from '@/hooks';
 import CustomForm from '@/components/common/customForm';
 import { fields } from './const';
 import Button from '@/components/common/Button';
 import Popup from '@/components/common/popup';
 import Image from 'next/image';
 import Bar from '@/components/myPosters/bar';
+import { mutate } from 'swr';
 
 function MyPosters() {
     const { data: posters } = useInactivePosters();
 
     const activatePoster = async (posterId: string) => {
         await mutatePosterActivate(posterId);
+        await mutate(URLs.activePostersList);
     };
 
     return (
