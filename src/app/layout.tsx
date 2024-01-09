@@ -5,6 +5,7 @@ import Header from '@/components/common/Header'
 import Footer from '@/components/common/footer'
 import Shell from '@/components/common/shell'
 import Nav from '@/components/common/nav'
+import Providers from '@/components/providers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,15 +21,19 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Header>
-          <Shell>
-            <Nav/>
-          </Shell>
-        </Header>
-          {children}
-        <Footer/>
-      </body>
+		<body className={inter.className}>
+			<Providers>
+				<Header>
+					<Shell>
+						<Nav/>
+					</Shell>
+				</Header>
+
+				{children}
+				
+				<Footer/>
+			</Providers>
+		</body>
     </html>
   )
 }

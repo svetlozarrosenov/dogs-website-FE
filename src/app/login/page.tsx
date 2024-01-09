@@ -5,23 +5,18 @@ import Shell from '@/components/common/shell';
 import { useState } from 'react';
 import { mutateLogin } from '@/hooks';
 import { useRouter } from 'next/navigation'
-
+import { signIn } from 'next-auth/react';
 
 function Login() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const router = useRouter();
     
     const onSubmit = async (values) => {
         try {
-            const { data, error } = await mutateLogin(values);
-            // Handle login logic based on data and error
-            if (data) {
-                setIsLoggedIn(true);
-                router.push('/'); 
-                // Additional logic for successful login
-            } else if (error) {
-                // Handle login error (e.g., display error message)
-            }
+            await signIn('credentials', {
+                redirect: false,
+                email: values.email,
+                password: values.password,
+            });
         } catch (error) {
             console.log('crb_the_error', error);
             // Handle other errors if needed

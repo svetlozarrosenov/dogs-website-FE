@@ -1,13 +1,13 @@
 'use client';
-import { useCurrentUser } from '@/hooks';
 import './Header.css';
+import { useSession } from 'next-auth/react';
 
 function Header(props: any) {
-    const { data: currentUser } = useCurrentUser();
+    const {data: session} = useSession();
 
     return (
         <div className='header'>
-            { currentUser && `Welcome ${currentUser?.firstName}`}
+            { session && `Welcome ${session?.user.firstName}`}
             {props.children}
         </div>
     );

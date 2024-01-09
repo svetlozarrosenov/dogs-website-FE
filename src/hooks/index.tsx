@@ -32,32 +32,13 @@ export const useInactivePosters = () => {
     }
 }
 
-export const useCurrentUser = () => {
-    const { 
-        data: result, 
-        error, 
-        isLoading, 
-        isValidating, 
-        mutate 
-    } = useSWR(URLs.currentUser, 
-        async (url) => await axios.post(url, {}, {
-            withCredentials: true,
-        }),
-        );
-
-    return {
-        data: result?.data,
-        mutate
-    };
-};
-
 export const mutateLogin = async (loginData, options = {}) => {
     return await mutate(
         URLs.currentUser,
         async (current) => {
             const response = await axios.post(URLs.login, loginData, {
                 withCredentials: true,
-              });
+            });
 
             return axios.isAxiosError(response) ?
             current : response

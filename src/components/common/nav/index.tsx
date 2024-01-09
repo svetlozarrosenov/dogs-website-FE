@@ -2,10 +2,12 @@
 import Link from 'next/link';
 import Cookies from 'js-cookie';
 import './Nav.css';
-import { useCurrentUser } from '@/hooks';
+import { useSession } from 'next-auth/react';
+import { mutate } from 'swr';
 
 function Nav () {
-    const { data: currentUser, mutate } = useCurrentUser();
+    const {data: session} = useSession();
+    const currentUser = session?.user;
 
     const handleLogout = () => {
         Cookies.remove('jwt');
@@ -33,7 +35,7 @@ function Nav () {
                     <Link href="/dashboard">Dashboard</Link>
                 </li>}
                 {currentUser && <li>
-                    <Link onClick={handleLogout} href="/login">Logout</Link>
+                    <Link onClick={handleLogout} href="/api/auth/signout">Logout</Link>
                 </li>}
             </ul>
         </nav>

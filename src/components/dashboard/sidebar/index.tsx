@@ -1,12 +1,9 @@
 'use client';
-import { useCurrentUser } from '@/hooks';
 import './sidebar.css';
 import Link from 'next/link';
 import Shell from '@/components/common/shell';
 
 function Sidebar() {
-    const { data: currentUser } = useCurrentUser();
-
     return (
         <div className="sidebar">
             <Shell>
