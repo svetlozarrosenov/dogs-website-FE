@@ -2,20 +2,16 @@
 import './Login.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import Shell from '@/components/common/shell';
-import { useState } from 'react';
-import { mutateLogin } from '@/hooks';
-import { useRouter } from 'next/navigation'
 import { signIn } from 'next-auth/react';
 
-function Login() {
-    const router = useRouter();
-    
+function Login() {    
     const onSubmit = async (values) => {
         try {
             await signIn('credentials', {
-                redirect: false,
+                redirect: true,
                 email: values.email,
                 password: values.password,
+                callbackUrl: '/dashboard'
             });
         } catch (error) {
             console.log('crb_the_error', error);
