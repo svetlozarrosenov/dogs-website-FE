@@ -36,7 +36,7 @@ function Register() {
                     }}
                     validationSchema={SignupSchema}
                     onSubmit={async values => {
-                        const url = `${process.env.NEXT_PUBLIC_API_URL}/user/register`
+                        const url = `${process.env.NEXT_PUBLIC_BACK_END_API_URL}/user/register`
                         try{
                             await fetch(url, {
                                 body: JSON.stringify(values),

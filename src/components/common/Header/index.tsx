@@ -1,13 +1,13 @@
-'use client';
 import './Header.css';
-import { useSession } from 'next-auth/react';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
-function Header(props: any) {
-    const {data: session} = useSession();
+const Header = async (props) => {
+    const session = await getServerSession(authOptions)
 
     return (
         <div className='header'>
-            { session && `Welcome ${session?.user.firstName}`}
+            { session && `Welcome ${session?.user?.firstName}`}
             {props.children}
         </div>
     );

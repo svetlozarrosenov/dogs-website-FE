@@ -11,9 +11,13 @@ import Image from 'next/image';
 import Bar from '@/components/myPosters/bar';
 import { URLs } from '@/hooks';
 import { mutate } from 'swr';
+import { useSession } from 'next-auth/react';
 
 function MyPosters() {
     const { data: posters } = useActivePosters();
+    const { data: session, status } = useSession();
+
+    const jwtToken = session?.nestjsAccessToken;
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
@@ -25,7 +29,7 @@ function MyPosters() {
     };
 
     const onSubmit = async (values) => {
-        await mutatePosterCreate(values);
+        await mutatePosterCreate(values, jwtToken);
         closePopup();
     };
 
@@ -56,7 +60,7 @@ function MyPosters() {
                             {poster.image && (
                                 <div className="poster__image">
                                     <Image
-                                        src={`${process.env.NEXT_PUBLIC_API_URL}/file/${poster.image}`}
+                                        src={`${process.env.NEXT_PUBLIC_BACK_END_API_URL}/file/${poster.image}`}
                                         alt={`Poster Image - ${poster.title}`}
                                         width={300} // Set the desired width
                                         height={200} // Set the desired height

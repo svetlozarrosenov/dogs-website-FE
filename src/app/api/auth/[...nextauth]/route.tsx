@@ -23,7 +23,7 @@ export const authOptions: NextAuthOptions = {
 				password: { label: "Password", type: "password" }
 			},
 			async authorize(credentials, req) {
-				const url = `${process.env.NEXT_BACK_END_API_URL}/auth/login`;
+				const url = `${process.env.NEXT_PUBLIC_BACK_END_API_URL}/auth/login`;
 				const response = await axios.post(url, {
 						email: credentials.email, 
 						password: credentials.password
@@ -31,11 +31,11 @@ export const authOptions: NextAuthOptions = {
 					withCredentials: true,
 				});
 
-				const user = response.data;
+				const {user, nestjsAccessToken} = response.data;
 
 				// If no error and we have user data, return it
 				if (response.status == 201 && user) {
-					return user
+					return {user, nestjsAccessToken}
 				}
 				// Return null if user data could not be retrieved
 				return null
@@ -43,16 +43,18 @@ export const authOptions: NextAuthOptions = {
         })
     ],
 	callbacks: {
-		async jwt({token, user}) {
+		async jwt({user, token}) {
 			if(user) return {...token, ...user};
 			return token;
 		},
 		async session({token, session}) {
 			session.user = {
-				firstName: token.firstName,
-				lastName: token.lastName,
-				email: token.email,
-			}
+				firstName: token.user.firstName,
+				lastName: token.user.lastName,
+				email: token.user.email,
+			};
+			session.nestjsAccessToken = token.nestjsAccessToken.jwt;
+
 			return session;
 		}
 	},
