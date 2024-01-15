@@ -9,10 +9,14 @@ import Button from '@/components/common/Button';
 import Popup from '@/components/common/popup';
 import Image from 'next/image';
 import Bar from '@/components/myPosters/bar';
+import { useRouter } from 'next/navigation';
+
 import { mutate } from 'swr';
 
 function MyPosters() {
     const { data: posters } = useInactivePosters();
+
+    const router = useRouter();
 
     const activatePoster = async (posterId: string) => {
         await mutatePosterActivate(posterId);
@@ -51,6 +55,7 @@ function MyPosters() {
 
                             <div className="poster__foot">
                                 <Button>Edit</Button>
+                                <Button onClick={() => router.push(`/my-posters/${poster._id}`)}>View</Button>
                                 <Button onClick={() => activatePoster(poster._id)}>Activate</Button>
                                 <Button onClick={() => removePoster(poster._id)}>Remove</Button>
                             </div>

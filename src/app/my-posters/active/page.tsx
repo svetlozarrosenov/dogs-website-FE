@@ -12,10 +12,12 @@ import Bar from '@/components/myPosters/bar';
 import { URLs } from '@/hooks';
 import { mutate } from 'swr';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 function MyPosters() {
     const { data: posters } = useActivePosters();
     const { data: session, status } = useSession();
+    const router = useRouter();
 
     const jwtToken = session?.nestjsAccessToken;
     const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -75,6 +77,7 @@ function MyPosters() {
                         </div>
 
                         <div className="poster__foot">
+                            <Button onClick={() => router.push(`/my-posters/${poster._id}`)}>View</Button>
                             <Button onClick={openPopup}>Edit</Button>
                             <Button onClick={() => deactivatePoster(poster._id)}>Deactivate</Button>
                         </div>
