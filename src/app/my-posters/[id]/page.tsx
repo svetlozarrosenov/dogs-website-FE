@@ -16,13 +16,13 @@ const fetchPoster = async (posterId: string) => {
 		}
 	);
 
-	console.log('crb_response', response)
+	return response.json();
 }
 
 export default async function Poster({params}) {
 	const {id} = params;
 	const poster = await fetchPoster(id);
-	// console.log('crb_params', params, poster)
+	console.log('crb_poster', poster)
 	return <div className="single-poster">
 		<Shell>
 			<div className="single-poster-container">
@@ -30,9 +30,9 @@ export default async function Poster({params}) {
 
 				<div className="single-poster__title">{poster?.title}</div>
 
-				<div className="signle-poster__breed"></div>
+				<div className="signle-poster__breed">{poster?.breed}</div>
 
-				<div className="single-poster__content"></div>
+				<div className="single-poster__content">{poster?.text}</div>
 			</div>
 		</Shell>
 	</div>
